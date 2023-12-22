@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Adjusted to stack elements vertically */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        #calendar {
+            max-width: 600px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #calendar header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        #calendar table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #calendar th, #calendar td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        #calendar td {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #calendar td:hover {
+            background-color: #f0f0f0;
+        }
+
+        #entry-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            z-index: 999;
+        }
+
+        #entry-modal input, #entry-modal select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #entry-modal button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <title>MindfulMate App</title>
+</head>
+<body>
+
+<header>
+    Welcome to the MindfulMate App
+</header>
+
+<div id="calendar">
+    <header id="month-year">Month Year</header>
+    <table id="calendar-table"></table>
+</div>
+
+<div id="entry-modal">
+    <input type="date" id="entry-date" required>
+    <select id="mood-dropdown">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="excited">Excited</option>
+        <option value="relaxed">Relaxed</option>
+        <option value="stressed">Stressed</option>
+        <option value="content">Content</option>
+        <!-- Add more mood options as needed -->
+    </select>
+    <button onclick="saveMoodEntry()">Save Entry</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendar = document.getElementById('calendar');
+        const calendarTable = document.getElementById('calendar-table');
+        const monthYearHeader = document.getElementById('month-year');
+        const entryModal = document.getElementById('entry-modal');
+        const entryDateInput = document.getElementById('entry-date');
+        const moodDropdown = document.getElementById('mood-dropdown');
+
+        let selectedDate;
+
+        function generateCalendar(month, year) {
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+            calendarTable.innerHTML = '';
+
+            // Set month and year in the header
+            monthYearHeader.innerText = `${getMonthName(month)} ${year}`;
+
+            // Create table header with day names
+            const thead = document.createElement('thead');
+            const tr = document.createElement('tr');
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            for (let i = 0; i < dayNames.length; i++) {
+                const th = document.createElement('th');
+                th.innerText = dayNames[i];
+                tr.appendChild(th);
+            }
+
+            thead.appendChild(tr);
+            calendarTable.appendChild(thead);
+
+            // Create table rows and cells
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const tr = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    const td = document.createElement('td');
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        // Empty cell before the first day of the month
+                        td.innerText = '';
+                    } else if (day > daysInMonth) {
+                        // Stop adding cells once we reach the last day of the month
+                        break;
+                    } else {
+                        td.innerText = day;
+                        td.addEventListener('click', function () {
+                            selectedDate = new Date(year, month, day);
+                            openEntryModal();
+                        });
+                        day++;
+                    }
+
+                    tr.appendChild(td);
+                }
+
+                calendarTable.appendChild(tr);
+            }
+        }
+
+        function getMonthName(month) {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            return monthNames[month];
+        }
+
+        function openEntryModal() {
+            entryDateInput.value = selectedDate.toISOString().split('T')[0];
+            entryModal.style.display = 'block';
+
+            // Set the default mood (optional)
+            moodDropdown.value = 'happy'; // Change 'happy' to your default mood
+        }
+
+        window.saveMoodEntry = function () {
+            const entryDate = entryDateInput.value;
+            const selectedMood = moodDropdown.options[moodDropdown.selectedIndex].value;
+
+            if (entryDate && selectedMood) {
+                alert(`Mood entry saved for ${entryDate}: ${selectedMood}`);
+                entryModal.style.display = 'none';
+            } else {
+                alert('Please enter both date and mood.');
+            }
+        };
+
+        const currentDate = new Date();
+        generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+    });
+</script>
+
+</body>
+</html>

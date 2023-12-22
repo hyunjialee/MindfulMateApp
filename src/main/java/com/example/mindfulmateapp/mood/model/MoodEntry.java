@@ -1,39 +1,15 @@
-package Mood;
-//@Entity  //need persistance.xml  and in pom
+package com.example.mindfulmateapp.mood.model;
+
+import com.example.mindfulmateapp.user.model.User;
+import lombok.Data;
+import java.util.Date;
+
+@Data
 public class MoodEntry {
-    // Selected entries: happy, sad, tired, mad, neutral, stressed
+    // @Data creates the constructors for you
 
-    //    HAPPY,
-    //    SAD,
-    //    TIRED,
-    //    MAD,
-    //    MYBALLS,
-    //    STRESSED,
-    //    NEUTRAL
     private Mood mood;
-    private int id;
-    public  MoodEntry(Mood mood){
-        this.mood = mood;
-    }
-
-    public MoodEntry(Mood mood, int id) {
-        this.mood = mood;
-        this.id = id;
-    }
-
-    public Mood getMood() {
-        return mood;
-    }
-
-    public void setMood(Mood mood) {
-        this.mood = mood;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private int moodID;
+    private int userID;
+    private Date date;
 }

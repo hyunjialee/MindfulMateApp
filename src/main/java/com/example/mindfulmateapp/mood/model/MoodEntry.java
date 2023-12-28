@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -14,7 +16,7 @@ public class MoodEntry {
     // @Data creates the constructors for you
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int entryId;
 
     @ManyToOne(targetEntity = MoodName.class)
@@ -23,8 +25,7 @@ public class MoodEntry {
     //select mood from moodId LEFT JOIN to mood enum table on moodid;
     //select mood from moodTable et left join moodEntry em on
     // et.moodId = em.moodId where em.user_id = whaterver and em.date = whatever
-    private Date date;
-
+    private LocalDate date;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id", nullable = false)

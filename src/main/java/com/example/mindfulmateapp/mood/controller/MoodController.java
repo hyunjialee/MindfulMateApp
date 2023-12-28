@@ -40,4 +40,19 @@ public class MoodController {
         return (moodService.show(id));
     }
 
+    //{
+    //    "entryId": 1,
+    //    "moodId": {
+    //        "moodId": 1,
+    //        "mood": "Happy"
+    //    },
+    //    "date": "2023-26-12",
+    //    "user": {
+    //        "userId": 1,
+    //        "userName": "JJYC",
+    //        "email": "itsayaboy@gmail.com",
+    //        "password": "facebookStoresItInATxTFile"
+    //    }
+    //}
+
 }

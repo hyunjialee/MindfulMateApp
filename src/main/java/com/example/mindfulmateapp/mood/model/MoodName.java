@@ -13,7 +13,7 @@ import lombok.Data;
 public class MoodName {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int moodId;
     private String mood;
 

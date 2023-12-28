@@ -108,6 +108,8 @@
         <option value="relaxed">Relaxed</option>
         <option value="stressed">Stressed</option>
         <option value="content">Content</option>
+        <option value="tired">Content</option>
+
         <!-- Add more mood options as needed -->
     </select>
     <button onclick="saveMoodEntry()">Save Entry</button>
@@ -123,7 +125,6 @@
         const moodDropdown = document.getElementById('mood-dropdown');
 
         let selectedDate;
-
         function generateCalendar(month, year) {
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -165,7 +166,7 @@
                     } else {
                         td.innerText = day;
                         td.addEventListener('click', function () {
-                            selectedDate = new Date(year, month, day);
+                            selectedDate = new Date(year, month, td.innerText);
                             openEntryModal();
                         });
                         day++;
@@ -197,6 +198,7 @@
 
             if (entryDate && selectedMood) {
                 alert(`Mood entry saved for ${entryDate}: ${selectedMood}`);
+                //need to connect to date and mood
                 entryModal.style.display = 'none';
             } else {
                 alert('Please enter both date and mood.');

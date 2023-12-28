@@ -3,8 +3,10 @@ package com.example.mindfulmateapp.mood.model;
 public enum Mood {
     HAPPY,
     SAD,
-    TIRED,
-    MAD,
+    ANGRY,
+    EXCITED,
+    RELAXED,
     STRESSED,
-    NEUTRAL
+    CONTENT,
+    TIRED
 }

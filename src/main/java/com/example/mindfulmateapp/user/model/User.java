@@ -1,17 +1,25 @@
 package com.example.mindfulmateapp.user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.example.mindfulmateapp.mood.model.MoodEntry;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
 public class User {
 
     @Id
-    private int id;
+    @GeneratedValue
+    private int userId;
     private String userName;
     private String email;
     private String password;
+
+
+
+    @OneToMany(mappedBy = "user")
+    List<MoodEntry> moodEntries;
 
 }

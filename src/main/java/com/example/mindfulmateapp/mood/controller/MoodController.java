@@ -1,25 +1,22 @@
 package com.example.mindfulmateapp.mood.controller;
 
-import com.example.mindfulmateapp.mood.MoodService;
 import com.example.mindfulmateapp.mood.model.Mood;
 import com.example.mindfulmateapp.mood.model.MoodEntry;
+import com.example.mindfulmateapp.mood.service.MoodServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MoodController {
     //handles end points
 
-    private final MoodService moodService;
+    private final MoodServiceImplement moodService;
 
     @Autowired
-    public MoodController(MoodService moodService){
+    public MoodController(MoodServiceImplement moodService){
         this.moodService = moodService;
     }
 
@@ -28,20 +25,19 @@ public class MoodController {
         return "Hi, welcome to my app";
     }
 
-    @GetMapping("/happy")
-    public Mood sayHi(){
-        MoodEntry mood = new MoodEntry();
-
-        mood.setMood(Mood.HAPPY);
-        return mood.getMood();
-    }
-
     @GetMapping("/moods")
     public List<Mood> listMyEnums(){
         return moodService.getAllTopics();
     }
 
+    @PostMapping("/selectedMood")
+    public MoodEntry createEntry(@RequestBody MoodEntry mood){
+        return (moodService.create(mood));
+    }
 
-
+    @GetMapping("/showEntry")
+    public Optional<MoodEntry> showEntry(@RequestParam int id){
+        return (moodService.show(id));
+    }
 
 }

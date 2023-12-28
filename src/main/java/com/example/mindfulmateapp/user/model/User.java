@@ -1,6 +1,7 @@
 package com.example.mindfulmateapp.user.model;
 
 import com.example.mindfulmateapp.mood.model.MoodEntry;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     List<MoodEntry> moodEntries;
 
 }

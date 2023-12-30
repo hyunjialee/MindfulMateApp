@@ -3,8 +3,6 @@ package com.example.mindfulmateapp.user.controller;
 import com.example.mindfulmateapp.user.model.User;
 import com.example.mindfulmateapp.user.service.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +23,10 @@ public class UserController {
         return "Hi user";
     }
 
-    @GetMapping("/login")
-    public String loginUser(){
-        return "index";
-    }
+//    @GetMapping("/login")
+//    public String loginUser(){
+//        return "index";
+//    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user) {
@@ -43,6 +41,15 @@ public class UserController {
 //
 //        userService.saveUser(user);
         return "index";
+    }
+
+    @PostMapping("/login")
+    public String userLogin(@ModelAttribute("user") User user, Model model){
+        if(userService.findByUserName(user.getUserName()).isPresent() && userService.findByPassword(user.getPassword()).isPresent()){
+            return "index";
+        }
+        model.addAttribute("error", "User not found. Please check your credentials.");
+        return "homepage";
     }
 
 }

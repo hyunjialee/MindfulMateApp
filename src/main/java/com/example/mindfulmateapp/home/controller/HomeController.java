@@ -1,7 +1,6 @@
 package com.example.mindfulmateapp.home.controller;
 
 import com.example.mindfulmateapp.user.model.User;
-import com.example.mindfulmateapp.user.repository.UserRepository;
 import com.example.mindfulmateapp.user.service.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ public class HomeController {
     public String home(Model model){
         User user = new User();
         model.addAttribute("user", user); // Assuming you have a User class with a 'username' field
-        return "home";
+        return "homepage";
     }
 
     @PostMapping("/")

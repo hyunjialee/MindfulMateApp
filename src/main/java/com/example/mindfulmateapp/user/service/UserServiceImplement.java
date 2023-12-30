@@ -35,4 +35,8 @@ public class UserServiceImplement  {
         return userRepository.findByUserName(userName);
     }
 
+    public Optional<User> findByPassword(String password){
+        return userRepository.findByPassword(password);
+    }
+
 }

@@ -49,7 +49,7 @@ public class UserController {
             return "index";
         }
         model.addAttribute("error", "User not found. Please check your credentials.");
-        return "homepage";
+        return "login";
     }
 
 }

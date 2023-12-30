@@ -18,7 +18,7 @@ public class HomeController {
     public String home(Model model){
         User user = new User();
         model.addAttribute("user", user); // Assuming you have a User class with a 'username' field
-        return "homepage";
+        return "login";
     }
 
     @PostMapping("/")

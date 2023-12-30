@@ -84,6 +84,18 @@
             border: none;
             cursor: pointer;
         }
+        button.logout-btn {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button.logout-btn:hover {
+            background-color: #0059ff;
+        }
     </style>
     <title>MindfulMate App</title>
 </head>
@@ -93,6 +105,14 @@
     Welcome to the MindfulMate App
 </header>
 
+
+
+<div>
+    <button style = 'margin-right: 20px' onclick="profile()" class="logout-btn">My Profile</button>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+</div>
+
+<hr>
 
 <div id="calendar">
     <header id="month-year">Month Year</header>
@@ -211,17 +231,15 @@
     });
 </script>
 
-<button onclick="logout()">Logout</button>
-
 <script>
-    // ... (your existing JavaScript code)
-
-    function logout() {
-        // Add your logic to handle the logout action here
-        // For simplicity, let's assume you want to redirect to another HTML file
-        window.location.href = 'http://localhost:8080/';
-    }
+        function logout() {
+            window.location.href = 'http://localhost:8080/';
+        }
 </script>
+
+
+
+
 
 
 </body>

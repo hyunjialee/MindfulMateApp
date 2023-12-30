@@ -1,24 +1,48 @@
 package com.example.mindfulmateapp.user.controller;
 
-import com.example.mindfulmateapp.user.UserService;
-import com.example.mindfulmateapp.user.repository.UserRepository;
 import com.example.mindfulmateapp.user.model.User;
+import com.example.mindfulmateapp.user.service.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
+@RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImplement userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserServiceImplement userService){
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/greet")
     public String welcomeUser(){
         return "Hi user";
+    }
+
+    @GetMapping("/login")
+    public String loginUser(){
+        return "index";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") User user) {
+        if (userService.findByEmail(user.getEmail()).isPresent() || userService.findByUserName(user.getUserName()).isPresent()) {
+            return "registerError";
+        }
+        // Checkpoint: add in separate error page
+            userService.saveUser(user);
+//        if (userService.findByEmail(model.getAttribute("email")).isPresent()) {
+//            return new ResponseEntity<>("Email is already taken", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        userService.saveUser(user);
+        return "index";
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.mindfulmateapp.mood.model.Mood;
 import com.example.mindfulmateapp.mood.model.MoodEntry;
 import com.example.mindfulmateapp.mood.service.MoodServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public class MoodController {
         this.moodService = moodService;
     }
 
-    @GetMapping("")
+    @GetMapping("/welcome")
     public String greeting(){
-        return "Hi, welcome to my app";
+        return "Hi, Welcome to my app!";
     }
 
     @GetMapping("/moods")

@@ -12,15 +12,28 @@
             flex-direction: column; /* Adjusted to stack elements vertically */
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+            height: 150vh;
+            background: linear-gradient(to bottom, #fcfcfc, #83b8ea, #4047ea);
         }
 
         header {
             text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            font-size: 2em; /* Increase font size for a bolder look */
+            margin-bottom: 20px; /* Increase margin for more spacing */
+            background-color: #007bff; /* Add a background color */
+            color: #fff; /* Set text color to white */
+            padding: 20px; /* Add padding for better spacing */
+            border-radius: 10px; /* Add rounded corners for a sleeker appearance */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
         }
+
+        /* Optional: Hover effect for a more interactive experience */
+        header:hover {
+            background-color: #0059ff; /* Darker background color on hover */
+            transform: scale(1.05); /* Slight scale-up effect on hover */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+
 
         #calendar {
             max-width: 600px;
@@ -65,7 +78,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fff;
-            padding: 20px;
+            padding: 40px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             border-radius: 8px;
             z-index: 999;
@@ -85,16 +98,29 @@
             cursor: pointer;
         }
         button.logout-btn {
-            padding: 10px;
+            padding: 15px;
             background-color: #007bff;
             color: #fff;
             border: none;
+            border-radius: 10px;
             cursor: pointer;
             margin-top: 20px;
         }
 
         button.logout-btn:hover {
             background-color: #0059ff;
+            transform: scale(1.05); /* Slight scale-up effect on hover */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+        #image {
+            margin-top: 0px; /* Add margin at the top */
+        }
+
+        #image img {
+            border-radius: 8px; /* Add rounded corners to the image */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            max-width: 100%; /* Make sure the image doesn't exceed its container */
+            height: auto; /* Maintain aspect ratio */
         }
     </style>
     <title>MindfulMate App</title>
@@ -109,10 +135,15 @@
 
 <div>
     <button style = 'margin-right: 20px' onclick="profile()" class="logout-btn">My Profile</button>
+    <button style = 'margin-right: 20px' onclick="profile()" class="logout-btn">My Companion</button>
     <button onclick="logout()" class="logout-btn">Logout</button>
 </div>
 
 <hr>
+<p>Your companion is not created yet.</p>
+<div id ="image">
+<img src="https://gifdb.com/images/high/cute-love-seal-hibo-running-heart-x8anczsvcbban74o.gif" alt="Animated GIF" width="100" height="100">
+</div>
 
 <div id="calendar">
     <header id="month-year">Month Year</header>
@@ -236,7 +267,6 @@
             window.location.href = 'http://localhost:8080/';
         }
 </script>
-
 
 
 

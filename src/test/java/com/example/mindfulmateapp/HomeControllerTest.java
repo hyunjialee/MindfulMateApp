@@ -38,4 +38,7 @@ public class HomeControllerTest {
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/registration-success"));
 
     }
+    @Test
+    void contextLoads() {
+    }
 }

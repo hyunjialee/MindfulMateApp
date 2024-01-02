@@ -25,6 +25,11 @@ public class UserControllerTest {
     @MockBean
     private UserServiceImplement userService;
 
+
+    @Test
+    void contextLoads() {
+    }
+
     @Test
     public void testRegisterUserSuccess() throws Exception {
         when(userService.findByEmail("test@example.com")).thenReturn(Optional.empty());
@@ -60,6 +65,6 @@ public class UserControllerTest {
                         .param("password", "incorrectPassword"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("error", "User not found. Please check your credentials."))
-                .andExpect(MockMvcResultMatchers.view().name("login"));
+                .andExpect(MockMvcResultMatchers.view().name("loginError"));
     }
 }

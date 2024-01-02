@@ -21,11 +21,6 @@ public class MoodController {
         this.moodService = moodService;
     }
 
-    @GetMapping("/welcome")
-    public String greeting(){
-        return "Hi, Welcome to my app!";
-    }
-
     @GetMapping("/moods")
     public List<Mood> listMyEnums(){
         return moodService.getAllTopics();
@@ -41,6 +36,8 @@ public class MoodController {
         return (moodService.show(id));
     }
 
+
+            // EXAMPLE POSTMAN ENTRY FOR MOOD ENTRY.
     //{
     //    "entryId": 1,
     //    "moodId": {

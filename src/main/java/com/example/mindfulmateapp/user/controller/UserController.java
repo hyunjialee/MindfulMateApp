@@ -18,15 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/greet")
-    public String welcomeUser(){
-        return "Hi user";
-    }
-
-//    @GetMapping("/login")
-//    public String loginUser(){
-//        return "index";
-//    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model) {

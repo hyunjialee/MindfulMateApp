@@ -160,7 +160,7 @@
         <option value="relaxed">Relaxed</option>
         <option value="stressed">Stressed</option>
         <option value="content">Content</option>
-        <option value="tired">Content</option>
+        <option value="tired">Tired</option>
 
         <!-- Add more mood options as needed -->
     </select>
@@ -240,8 +240,8 @@
             entryDateInput.value = selectedDate.toISOString().split('T')[0];
             entryModal.style.display = 'block';
 
-            // Set the default mood (optional)
-            moodDropdown.value = 'happy'; // Change 'happy' to your default mood
+            // Set the default mood
+            moodDropdown.value = 'happy'; //
         }
 
         window.saveMoodEntry = function () {
@@ -250,7 +250,13 @@
 
             if (entryDate && selectedMood) {
                 alert(`Mood entry saved for ${entryDate}: ${selectedMood}`);
-                //need to connect to date and mood
+                //need to connect to date and mood on database entries ******
+
+
+                //    Next part to work on.
+
+
+
                 entryModal.style.display = 'none';
             } else {
                 alert('Please enter both date and mood.');
@@ -265,10 +271,9 @@
 <script>
         function logout() {
             window.location.href = 'http://localhost:8080/';
+            //Log out function back to the main Login page.
         }
 </script>
-
-
 
 
 

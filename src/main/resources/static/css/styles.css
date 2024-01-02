@@ -92,3 +92,14 @@ h2.active:after {
 h2.inactive:hover {
     color: #45a7d5;
 }
+
+.header {
+    text-align: center;
+    padding-right: 25px; /* Adjust the value as needed */
+}
+
+/* If you want to center the text horizontally, you can use the following style for the h1 element */
+.header h1 {
+    display: inline-block;
+}
+

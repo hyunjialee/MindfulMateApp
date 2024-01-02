@@ -3,11 +3,14 @@
 <head>
     <title>Registration Error</title>
 
+
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
     <script th:inline="javascript">
         $(document).ready(function() {
-            var errorMessage = "Invalid username or email. Please try a different username or email.";
+            var errorMessage = "Incorrect username or password. Please try again.";
             alert(errorMessage);
             window.location.href = 'http://localhost:8080';
         });

@@ -97,6 +97,18 @@
             border: none;
             cursor: pointer;
         }
+        #entry-modal .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 6px;
+            border-radius: 50%;
+        }
         button.logout-btn {
             padding: 15px;
             background-color: #007bff;
@@ -151,6 +163,7 @@
 </div>
 
 <div id="entry-modal">
+    <button onclick="closeEntryModal()" class="close-button">X</button>
     <input type="date" id="entry-date" required>
     <select id="mood-dropdown">
         <option value="happy">Happy</option>
@@ -166,6 +179,13 @@
     </select>
     <button onclick="saveMoodEntry()">Save Entry</button>
 </div>
+
+<script>
+    window.closeEntryModal = function () {
+        const entryModal = document.getElementById('entry-modal');
+        entryModal.style.display = 'none';
+    };
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -272,6 +292,12 @@
         function logout() {
             window.location.href = 'http://localhost:8080/';
             //Log out function back to the main Login page.
+        }
+</script>
+
+<script>
+        function underConstruction(){
+            window.location.href = 'underConstruction.html'
         }
 </script>
 

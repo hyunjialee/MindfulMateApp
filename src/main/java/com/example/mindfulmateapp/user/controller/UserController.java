@@ -29,17 +29,12 @@ public class UserController {
 //    }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user) {
+    public String registerUser(@ModelAttribute("user") User user, Model model) {
         if (userService.findByEmail(user.getEmail()).isPresent() || userService.findByUserName(user.getUserName()).isPresent()) {
+            model.addAttribute("errorMessage", "User with this email or username already exists.");
             return "registerError";
         }
-        // Checkpoint: add in separate error page
-            userService.saveUser(user);
-//        if (userService.findByEmail(model.getAttribute("email")).isPresent()) {
-//            return new ResponseEntity<>("Email is already taken", HttpStatus.BAD_REQUEST);
-//        }
-//
-//        userService.saveUser(user);
+        userService.saveUser(user);
         return "index";
     }
 
@@ -49,7 +44,7 @@ public class UserController {
             return "index";
         }
         model.addAttribute("error", "User not found. Please check your credentials.");
-        return "login";
+        return "loginError";
     }
 
 }

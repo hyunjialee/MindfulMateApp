@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @Entity
 //@JsonDeserialize(using = MoodEntryDeserializer.class)
-public class MoodEntry {
+public class  MoodEntry {
     // @Data creates the constructors for you
 
     @Id
@@ -22,9 +22,9 @@ public class MoodEntry {
     @ManyToOne(targetEntity = MoodName.class)
     @JoinColumn(name = "mood_id", nullable = false)
     private MoodName moodId;
-    //select mood from moodId LEFT JOIN to mood enum table on moodid;
+    //select mood from moodId LEFT JOIN to mood enum table on moodId;
     //select mood from moodTable et left join moodEntry em on
-    // et.moodId = em.moodId where em.user_id = whaterver and em.date = whatever
+    // et.moodId = em.moodId where em.user_id = column and em.date = column
     private LocalDate date;
 
     @ManyToOne(targetEntity = User.class)

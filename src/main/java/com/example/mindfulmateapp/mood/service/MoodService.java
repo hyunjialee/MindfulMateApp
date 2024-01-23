@@ -1,4 +1,4 @@
-package com.example.mindfulmateapp.mood;
+package com.example.mindfulmateapp.mood.service;
 
 import com.example.mindfulmateapp.mood.model.Mood;
 

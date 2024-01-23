@@ -1,29 +1,42 @@
 package com.example.mindfulmateapp.user.service;
 
 import com.example.mindfulmateapp.user.repository.UserRepository;
-import com.example.mindfulmateapp.user.UserService;
-import com.example.mindfulmateapp.user.mapper.UserRequestDTO;
 import com.example.mindfulmateapp.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserServiceImplement implements UserService {
+import java.util.Optional;
 
-    private final UserRepository userRepository;
+@Service
+public class UserServiceImplement  {
 
     @Autowired
-    public UserServiceImplement(UserRepository userRepository){
+    private final UserRepository userRepository;
+
+    public UserServiceImplement(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-
-//    public UserRequestDTO findUserByID(Integer id){
-//        User userID = userRepository.findUserByID(id);
-//
-//        return UserRequestDTO.builder().name(userID.getName()).email(userID.getEmail()).password(userID.getPassword())
-//                .id(userID.getId()).build();
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        return userRepository.findByEmail(email)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 //    }
 
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public Optional<User> findByUserName(String userName){
+        return userRepository.findByUserName(userName);
+    }
+
+    public Optional<User> findByPassword(String password){
+        return userRepository.findByPassword(password);
+    }
 
 }

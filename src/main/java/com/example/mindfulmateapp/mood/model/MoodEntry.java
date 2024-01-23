@@ -1,48 +1,36 @@
 package com.example.mindfulmateapp.mood.model;
 
 import com.example.mindfulmateapp.user.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-// Mood entries for users
+
+@Data
 @Entity
-public class MoodEntry {
+//@JsonDeserialize(using = MoodEntryDeserializer.class)
+public class  MoodEntry {
+    // @Data creates the constructors for you
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int entryId;
 
+    @ManyToOne(targetEntity = MoodName.class)
+    @JoinColumn(name = "mood_id", nullable = false)
+    private MoodName moodId;
+    //select mood from moodId LEFT JOIN to mood enum table on moodId;
+    //select mood from moodTable et left join moodEntry em on
+    // et.moodId = em.moodId where em.user_id = column and em.date = column
     private LocalDate date;
 
-    private String mood;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getMood() {
-        return mood;
-    }
-
-    public void setMood(String mood) {
-        this.mood = mood;
-    }
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private User user;
 }

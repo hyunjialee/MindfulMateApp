@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Error</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var errorMessage = "Invalid username or email. Please try a different username or email.";
+            alert(errorMessage);
+            window.location.href = 'http://localhost:8080/register';
+        });
+
+    </script>
+</head>
+</html>

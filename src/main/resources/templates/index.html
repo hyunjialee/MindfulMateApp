@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 150vh;
+            background: linear-gradient(to bottom, #fcfcfc, #83b8ea, #4047ea);
+        }
+
+        header {
+            text-align: center;
+            font-size: 2em; /* Increase font size for a bolder look */
+            margin-bottom: 20px; /* Increase margin for more spacing */
+            background-color: #007bff; /* Add a background color */
+            color: #fff; /* Set text color to white */
+            padding: 20px; /* Add padding for better spacing */
+            border-radius: 10px; /* Add rounded corners for a sleeker appearance */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        }
+
+        /*header:hover {*/
+        /*    background-color: #0059ff;
+        /*    transform: scale(1.05);
+        /*    transition: background-color 0.3s, transform 0.3s;
+        /*}*/
+
+
+        #calendar {
+            max-width: 600px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #calendar header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        #calendar table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #calendar th, #calendar td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        #calendar td {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #calendar td:hover {
+            background-color: #f0f0f0;
+        }
+
+        #entry-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            z-index: 999;
+        }
+
+        #entry-modal input, #entry-modal select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #entry-modal button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #entry-modal .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 6px;
+            border-radius: 50%;
+        }
+        button.logout-btn {
+            padding: 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button.logout-btn:hover {
+            background-color: #0059ff;
+            transform: scale(1.05); /* Slight scale-up effect on hover */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+        #image {
+            margin-top: -25px;
+        }
+
+        #image img {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+    <title>MindfulMate App</title>
+</head>
+<body>
+
+<header>
+    MindfulMate Application
+</header>
+
+
+
+<div>
+    <button style = 'margin-right: 20px' onclick="profile()" class="logout-btn">My Profile</button>
+    <button style = 'margin-right: 20px' onclick="profile()" class="logout-btn">My Companion</button>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+</div>
+
+<hr>
+<p><h3>Your companion is not created yet.</h3></p>
+<div id ="image">
+<img src="https://gifdb.com/images/high/cute-love-seal-hibo-running-heart-x8anczsvcbban74o.gif" alt="Animated GIF" width="100" height="100">
+</div>
+
+<div id="calendar">
+    <header id="month-year">Month Year</header>
+    <table id="calendar-table"></table>
+</div>
+
+<div id="entry-modal">
+    <button onclick="closeEntryModal()" class="close-button">X</button>
+    <input type="date" id="entry-date" required>
+    <select id="mood-dropdown">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="excited">Excited</option>
+        <option value="relaxed">Relaxed</option>
+        <option value="stressed">Stressed</option>
+        <option value="content">Content</option>
+        <option value="tired">Tired</option>
+
+        <!-- Add more mood options as needed -->
+    </select>
+    <button onclick="saveMoodEntry()">Save Entry</button>
+</div>
+
+<script>
+    window.closeEntryModal = function () {
+        const entryModal = document.getElementById('entry-modal');
+        entryModal.style.display = 'none';
+    };
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendar = document.getElementById('calendar');
+        const calendarTable = document.getElementById('calendar-table');
+        const monthYearHeader = document.getElementById('month-year');
+        const entryModal = document.getElementById('entry-modal');
+        const entryDateInput = document.getElementById('entry-date');
+        const moodDropdown = document.getElementById('mood-dropdown');
+
+        let selectedDate;
+        function generateCalendar(month, year) {
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+            calendarTable.innerHTML = '';
+
+            // Set month and year in the header
+            monthYearHeader.innerText = `${getMonthName(month)} ${year}`;
+
+            // Create table header with day names
+            const thead = document.createElement('thead');
+            const tr = document.createElement('tr');
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+            for (let i = 0; i < dayNames.length; i++) {
+                const th = document.createElement('th');
+                th.innerText = dayNames[i];
+                tr.appendChild(th);
+            }
+
+            thead.appendChild(tr);
+            calendarTable.appendChild(thead);
+
+            // Create table rows and cells
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const tr = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    const td = document.createElement('td');
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        // Empty cell before the first day of the month
+                        td.innerText = '';
+                    } else if (day > daysInMonth) {
+                        // Stop adding cells once we reach the last day of the month
+                        break;
+                    } else {
+                        td.innerText = day;
+                        td.addEventListener('click', function () {
+                            selectedDate = new Date(year, month, td.innerText);
+                            openEntryModal();
+                        });
+                        day++;
+                    }
+
+                    tr.appendChild(td);
+                }
+
+                calendarTable.appendChild(tr);
+            }
+        }
+
+        function getMonthName(month) {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            return monthNames[month];
+        }
+
+        function openEntryModal() {
+            entryDateInput.value = selectedDate.toISOString().split('T')[0];
+            entryModal.style.display = 'block';
+
+            // Set the default mood
+            moodDropdown.value = 'happy'; //
+        }
+
+        window.saveMoodEntry = function () {
+            const entryDate = entryDateInput.value;
+            const selectedMood = moodDropdown.options[moodDropdown.selectedIndex].value;
+
+            if (entryDate && selectedMood) {
+                alert(`Mood entry saved for ${entryDate}: ${selectedMood}`);
+                //need to connect to date and mood on database entries ******
+
+
+                //    Next part to work on.
+
+
+
+                entryModal.style.display = 'none';
+            } else {
+                alert('Please enter both date and mood.');
+            }
+        };
+
+        const currentDate = new Date();
+        generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+    });
+</script>
+
+<script>
+        function logout() {
+            window.location.href = 'http://localhost:8080/';
+            //Log out function back to the main Login page.
+        }
+</script>
+
+<script>
+        function underConstruction(){
+            window.location.href = 'underConstruction.html'
+        }
+</script>
+
+
+</body>
+</html>

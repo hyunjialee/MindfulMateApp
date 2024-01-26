@@ -16,6 +16,7 @@ public class MoodServiceImplement implements MoodService {
 
     private final MoodRepository moodRepository;
 
+
     private List<Mood> moods = Arrays.asList(Mood.values());
 
 

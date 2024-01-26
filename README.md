@@ -18,3 +18,6 @@ Set personal challenges aimed at improving your mood and well-being. Achieving t
 Community and Sharing:
 Join the MindfulMate community to share your mood trends, challenges, and achievements. Connect with like-minded individuals, offering support and encouragement. This social aspect fosters a sense of community, turning MindfulMate into a positive space for shared emotional growth.
 Embark on your journey to emotional well-being with MindfulMate – where positive habits, personalized companionship, and a supportive community come together to elevate your daily life.
+
+
+Tech Stack: Java, Spring Boot, Javascript, HTML, CSS 

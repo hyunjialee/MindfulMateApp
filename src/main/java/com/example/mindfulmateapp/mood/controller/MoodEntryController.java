@@ -1,7 +1,7 @@
 package com.example.mindfulmateapp.mood.controller;
 
 import com.example.mindfulmateapp.mood.MoodEntryRepository;
-import com.example.mindfulmateapp.mood.MoodService;
+
 import com.example.mindfulmateapp.mood.model.Mood;
 import com.example.mindfulmateapp.mood.model.MoodEntry;
 import org.springframework.beans.factory.annotation.Autowired;

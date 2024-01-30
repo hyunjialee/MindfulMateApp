@@ -30,6 +30,16 @@ class MoodEntryApplicationTest {
         Assertions.assertEquals(expected, mood.getEntryId());
 
     }
+    @Test
+    public void moodTest1(){
+        MoodEntry mood = new MoodEntry();
+        mood.setEntryId(0);
+
+        Integer expected = 0;
+
+        Assertions.assertEquals(expected, mood.getEntryId());
+
+    }
 
     @Test
     public void moodTest2(){

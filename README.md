@@ -20,4 +20,9 @@ Join the MindfulMate community to share your mood trends, challenges, and achiev
 Embark on your journey to emotional well-being with MindfulMate – where positive habits, personalized companionship, and a supportive community come together to elevate your daily life.
 
 
+
+<p align="center">
+  <img src="https://github.com/hyunjialee/MindfulMateApp/assets/148006117/98e4691e-2a5b-4418-81bd-0983dda578ac" alt="MindfulMate Screenshot">
+</p>
+
 Tech Stack: Java, Spring Boot, Javascript, HTML, CSS 
